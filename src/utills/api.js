@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const BASE_URL = 'http://172.19.113.48:8000/';
+const BASE_URL = 'http://172.19.117.210:8000/';
 // Login function
 export async function loginUser(email, password) {
   try {
@@ -219,22 +219,40 @@ export const predictDisease = async (formData) => {
   }
 };
 
-export const getDiseaseInfo = async (diseaseName) => {
+// export const getDiseaseInfo = async (diseaseName) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}prediction-diseasae/get_info_ds/`, {
+//       method: 'POST',  // Specify the HTTP method
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ disease: diseaseName }),  // Send disease name in the request body
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Failed to fetch disease information.');
+//     }
+
+//     return await response.json();  // Returns detailed disease info
+//   } catch (error) {
+//     throw new Error('Error fetching disease information. Please try again.');
+//   }
+// };
+
+export const getPredictionInfo = async (predictionData) => {
   try {
     const response = await fetch(`${BASE_URL}prediction-diseasae/get_info_ds/`, {
-      method: 'POST',  // Specify the HTTP method
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ disease: diseaseName }),  // Send disease name in the request body
+      body: JSON.stringify(predictionData),
     });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch disease information.');
-    }
-
-    return await response.json();  // Returns detailed disease info
+    if (!response.ok) throw new Error("Network response was not ok");
+    const data = await response.json();
+    return data;
   } catch (error) {
-    throw new Error('Error fetching disease information. Please try again.');
+    console.error("Error fetching prediction info:", error);
+    return null;
   }
 };
