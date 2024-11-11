@@ -59,6 +59,19 @@ const CameraCapture = () => {
     }
   };
 
+  // Function to save the captured image locally and navigate to the /upload page
+  const saveImageLocally = (imageDataURL, navigate) => {
+    const link = document.createElement('a');
+    link.href = imageDataURL;
+    link.download = 'capturedImage.jpg';
+    
+    // Trigger the download
+    link.click();
+
+    // Navigate to /upload page
+    navigate('/upload');
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-green-200 p-6 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold text-green-800 mb-4">Live Camera</h1>
@@ -81,7 +94,7 @@ const CameraCapture = () => {
             </button>
             
             <button 
-              onClick={() => saveImageLocally(capturedImage)}
+              onClick={() => saveImageLocally(capturedImage, navigate)}
               className="px-6 py-3 bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300 ease-in-out"
             >
               Save Locally
@@ -98,17 +111,6 @@ const CameraCapture = () => {
       )}
     </div>
   );
-};
-
-// Function to save the captured image locally in JPG format
-const saveImageLocally = (imageDataURL) => {
-  // Create a link element
-  const link = document.createElement('a');
-  link.href = imageDataURL;
-  link.download = 'capturedImage.jpg'; // Save as .jpg file
-  
-  // Programmatically click the link to trigger download
-  link.click();
 };
 
 export default CameraCapture;

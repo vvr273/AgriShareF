@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const BASE_URL = 'http://172.19.117.210:8000/';
+const BASE_URL = 'http://192.168.39.193:8000/';
 // Login function
 export async function loginUser(email, password) {
   try {
